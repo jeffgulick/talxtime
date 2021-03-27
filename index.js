@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const { Message } = require("./data/models/messageSchema"); 
 
 const server = require("http").createServer(app);
@@ -17,6 +18,9 @@ app.use(cookieParser());
 
 app.use("/api/users", require("./routes/userRouter"));
 app.use("/api/messages", require("./routes/messagesRouter"));
+
+// CORS middleware
+app.use(cors());
 
 const mongoose = require("mongoose");
 const connect = mongoose
