@@ -16,12 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+//for routes
 app.use("/api/users", require("./routes/userRouter"));
 app.use("/api/messages", require("./routes/messagesRouter"));
 
 // CORS middleware
 app.use(cors());
-
+//db connection
 const mongoose = require("mongoose");
 const connect = mongoose
   .connect(db, {
@@ -61,17 +62,11 @@ io.on("connection", socket => {
   });
 });
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+ '/client/build/index.html'))
-// })
-// app.enable("trust proxy");
-// app.use(express.static("client/build"));
-
+//static files for build
 app.use(express.static(path.join(__dirname, 'client/build')))
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
-
 
 const port = process.env.PORT || 3001;
 server.listen(port, () => {
