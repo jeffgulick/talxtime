@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "9pt",
     backgroundColor: "#FC4E50",
     color:"white",
-    width:"70px",
+    width:"90px",
     paddingLeft: "40px",
   },
 }));
