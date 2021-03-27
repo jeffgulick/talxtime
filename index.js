@@ -9,7 +9,8 @@ const { Message } = require("./data/models/messageSchema");
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const db = require("./config/production").mongoURI;
+// const db = require("./config/production").mongoURI;
+const db = process.env.MONGODB_URI
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
