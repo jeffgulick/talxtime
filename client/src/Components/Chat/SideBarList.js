@@ -27,7 +27,7 @@ const SideBarList = (props) => {
         setLastConversations(data.data)
         setLoading(false)
       } )
-  }, [lastConversations]);
+  }, []);
 
   //fires when conversation is selected. compares selected conversation to 
   //user in contacts. 
