@@ -115,7 +115,7 @@ const Chat = (props) => {
   const classes = useStyles();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [socket] = useSocket("http://localhost:3001");
+  const [socket] = useSocket();
   let list = props.messages;
   let toggle = props.toggleSideBar;
   socket.connect();
