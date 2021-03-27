@@ -43,8 +43,13 @@ const conversationList = async (req, res) => {
       } else {
         //parsing data to work with later
         let conversations = messages.map((item) => {
-          let msgObj = { conversationName: "", message: "", sender: "", recipientId: "" };
-          if (item.userSent[0]._id == req.body.senderId) { 
+          let msgObj = {
+            conversationName: "",
+            message: "",
+            sender: "",
+            recipientId: "",
+          };
+          if (item.userSent[0]._id == req.body.senderId) {
             msgObj.conversationName = item.userRecieved[0].username;
             msgObj.message = item.message;
             msgObj.recipientId = item.recipient;
@@ -62,7 +67,7 @@ const conversationList = async (req, res) => {
           return objectArray.reduce((acc, obj) => {
             let key = obj[property];
             if (!acc[key]) {
-              acc[key] = []; 
+              acc[key] = [];
             }
             acc[key].push(obj);
             return acc;

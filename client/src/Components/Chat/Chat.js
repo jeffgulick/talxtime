@@ -150,7 +150,7 @@ const Chat = (props) => {
     }
   }, [list]);
 
-  //sending message to server
+  //sending message to server creates variables to send to database
   const handleSubmit = (event) => {
     event.preventDefault();
     let chatMessage = input;
@@ -205,6 +205,7 @@ const Chat = (props) => {
 
             <Button
               variant="contained"
+              onClick={handleSubmit}
               className={classes.button}
               endIcon={<Icon />}
             >

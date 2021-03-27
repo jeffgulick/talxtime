@@ -1,17 +1,15 @@
-require('dotenv').config();
-const path = require('path');
+require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const { Message } = require("./data/models/messageSchema"); 
+const { Message } = require("./data/models/messageSchema");
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-// const db = require("./config/production").mongoURI;
-const db = process.env.MONGODB_URI
-
+const db = process.env.MONGODB_URI;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -36,9 +34,8 @@ const connect = mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
-io.on("connection", socket => {
+io.on("connection", (socket) => {
   socket.on("Input Chat Message", (msg) => {
-
     connect.then((db) => {
       try {
         let chat = new Message({
@@ -64,13 +61,8 @@ io.on("connection", socket => {
   });
 });
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+ '/client/build/index.html'))
-// })
-// app.enable("trust proxy");
-// app.use(express.static("client/build"));
-//static files for build
-app.use(express.static(path.join(__dirname, 'client/build')))
+//static files for production build
+app.use(express.static(path.join(__dirname, "client/build")));
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
@@ -78,4 +70,4 @@ app.get("*", (req, res) => {
 const port = process.env.PORT || 3001;
 server.listen(port, () => {
   console.log(`Server Listening on ${port}`);
-})
+});

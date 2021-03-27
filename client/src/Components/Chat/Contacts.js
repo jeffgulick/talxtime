@@ -12,6 +12,7 @@ const Contacts = (props) => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //gets available users to select
   useEffect(() => {
     axios
       .get("/api/users/contacts")
@@ -26,7 +27,7 @@ const Contacts = (props) => {
         console.log(error);
       });
   }, []);
-
+  //selecting a user and sends info to redux
   const selectPerson = (user) => {
     let info = { senderId: "", recipientId: "" };
     info.recipientId = user._id;

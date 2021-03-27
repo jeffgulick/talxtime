@@ -2,7 +2,17 @@ import React, { useState } from "react";
 import "./SideBar.css";
 import Contacts from "../../Containers/Contacts";
 import { makeStyles } from "@material-ui/core/styles";
-import { Avatar, AppBar, Toolbar, IconButton, List, Button, Dialog, DialogActions, DialogContent } from "@material-ui/core";
+import {
+  Avatar,
+  AppBar,
+  Toolbar,
+  IconButton,
+  List,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "@material-ui/core";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -48,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const SideBar = () => {
   const [open, setOpen] = useState(false);
 
+  //handles model
   const handleClickOpen = () => {
     setOpen(true);
   };
