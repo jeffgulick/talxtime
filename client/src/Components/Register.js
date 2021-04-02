@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useFormik } from "formik";
 import axios from "axios";
 import {
   Card,
@@ -53,31 +54,39 @@ const useStyles = makeStyles({
   },
 });
 
+//this is how the form handles input errors by the user
+const validate = values => {
+  const errors = {};
+   if (!values.userName) {
+     errors.userName = 'Required';
+   } else if (values.userName.length > 15) {
+     errors.firstName = 'Must be 15 characters or less';
+   }
+   return errors
+}
+
 export default function Register() {
   const classes = useStyles();
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
   let history = useHistory();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const formik = useFormik({
+    initialValues: {
+      userName: "",
+      password: "",
+    },
+    validate,
+    onSubmit: (values) => {
+      axios
+        .post("/api/users/register", {
+          username: values.userName,
+          password: values.password,
+        })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
 
-    axios
-      .post("/api/users/register", {
-        username: userName,
-        password: password,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    history.push("/");
-    setUserName("");
-    setPassword("");
-  };
+      history.push("/");
+    },
+  });
 
   return (
     <div className={classes.container}>
@@ -86,24 +95,27 @@ export default function Register() {
           Register
         </Typography>
         <CardContent className={classes.content}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
             <TextField
               className={classes.TextField}
-              id="outlined-basic"
+              id="userName"
               label="Username *"
+              name="userName"
               size="small"
-              value={userName}
-              onChange={(event) => setUserName(event.target.value)}
+              value={formik.values.userName}
+              onChange={formik.handleChange}
             />
+            {formik.errors.userName ? <div>{formik.errors.userName}</div> : null}
             <br />
             <TextField
               className={classes.TextField}
-              id="outlined-basic"
+              id="password"
+              name="password"
               label="Password *"
               size="small"
               type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={formik.values.password}
+              onChange={formik.handleChange}
             />
             <br />
             <Button

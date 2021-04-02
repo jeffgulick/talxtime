@@ -152,19 +152,24 @@ const Chat = (props) => {
 
   //sending message to server creates variables to send to database
   const handleSubmit = (event) => {
+    console.log(props.recipient)
     event.preventDefault();
     let chatMessage = input;
     let senderId = props.user.userId;
     let recipientId = props.recipient._id;
     let username = props.user.username;
 
-    socket.emit("Input Chat Message", {
-      chatMessage,
-      senderId,
-      recipientId,
-      username,
-    });
-    setInput("");
+    if (recipientId) {
+      socket.emit("Input Chat Message", {
+        chatMessage,
+        senderId,
+        recipientId,
+        username,
+      });
+      setInput("");  
+    } else {
+      alert("Please select a recipient")
+    }
   };
 
   return (
