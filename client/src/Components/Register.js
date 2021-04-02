@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useFormik } from "formik";
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
   },
 });
 
+//this is how the form handles input errors by the user
 const validate = values => {
   const errors = {};
    if (!values.userName) {
@@ -66,8 +67,6 @@ const validate = values => {
 
 export default function Register() {
   const classes = useStyles();
-  // const [userName, setUserName] = useState("");
-  // const [password, setPassword] = useState("");
   let history = useHistory();
 
   const formik = useFormik({
@@ -85,7 +84,7 @@ export default function Register() {
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
 
-      // history.push("/");
+      history.push("/");
     },
   });
 
