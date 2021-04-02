@@ -168,7 +168,7 @@ const Chat = (props) => {
       });
       setInput("");  
     } else {
-      alert("Please select a recipient")
+      alert("Please create or select a conversation")
     }
   };
 
